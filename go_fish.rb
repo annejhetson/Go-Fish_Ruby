@@ -1,27 +1,28 @@
 require './lib/game'
-require './lib/card'
 require './lib/player'
 
 def new_game
-  puts "Read to play Go Fish?\n\n"
+  puts "Ready to play Go Fish?\n\n"
   puts "Enter Player 1 Name"
   player_1 = Player.new(gets.chomp.capitalize)
   puts "Enter Player 2 Name"
   player_2 = Player.new(gets.chomp.capitalize)
-  start_game(1, player_1, player_2)
+  
+  start_game(0, player_1, player_2)
 end
 
 def start_game(turn, player_1, player_2)
   turn_player = ""
   non_turn_player = ""
-  if turn % 2 == 1
-    turn_player = player_1
-    non_turn_player = player_2
-  else
-    turn_player = player_2
-    non_turn_player = player_1
-  end
+      if turn % 2 == 1
+        turn_player = player_1
+        non_turn_player = player_2
+      else
+        turn_player = player_2
+        non_turn_player = player_1
+      end
   start_length = turn_player.hand.length
+  
   puts "\n#{turn_player.name} Cards:\n"
   puts turn_player.hand
   puts "---------------------------------------------------\n"
@@ -32,13 +33,17 @@ def start_game(turn, player_1, player_2)
 
   choice = gets.chomp
   non_turn_player.hand.each do |card|
-    puts card
-    if card[0..1].include?(choice) || card[0].include?(choice)
-      turn_player.hand << card
-      non_turn_player.hand.delete(card)
-      # go back one on the array
-    end
+      if card[0..1].include?(choice)
+        p card
+      @temp_array = []
+      @temp_array << card
+        p @temp_array
+     end
   end
+  print @temp_array
+  turn_player.hand.concat(@temp_array)
+  non_turn_player.hand = non_turn_player.hand - @temp_array
+  
   puts "\n\n#{turn_player.name} Cards:\n"
   puts turn_player.hand
   puts "---------------------------------------------------\n"

@@ -1,4 +1,4 @@
-require 'rspec'
+#require 'rspec'
 require 'game'
 
 describe Game do
