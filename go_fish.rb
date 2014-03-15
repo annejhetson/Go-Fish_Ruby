@@ -7,17 +7,25 @@ def new_game
   #puts "Press2: I'm playing with my friend"
   puts "Enter Player 1 Name"
   player_1 = Player.new(gets.chomp.capitalize)
-  puts "Enter Player 2 Name"
-  player_2 = Player.new(gets.chomp.capitalize)
+  puts "Enter Player 2 Name OR 'COMP' to play with computer"
+  name = gets.chomp
+  if name == "comp"
+    player_2 = Player.new("Awesome-O.0.1")
+  else
+    player_2 = Player.new(name.capitalize)
+  end
+  
   turn = 1
   turn_player = ""
   non_turn_player = ""
   player_1_score = 0
   player_2_score = 0
-  start_game(turn, player_1, player_2, player_1_score, player_2_score)
+  awesome_memory = []
+  start_game(turn, player_1, player_2, player_1_score, player_2_score, awesome_memory)
 end
 
-def start_game(turn, player_1, player_2, player_1_score, player_2_score)
+def start_game(turn, player_1, player_2, player_1_score, player_2_score, awesome_memory)
+  
   if turn.odd?
         turn_player = player_1
         non_turn_player = player_2
@@ -38,7 +46,20 @@ def start_game(turn, player_1, player_2, player_1_score, player_2_score)
   puts "\n---------------------------------------------------\n"
   puts "\n#{turn_player.name}, what card number do you want?"
   puts "Enter 'J' for Jack, 'Q' for Queen, 'K' for King and 'A' for Ace"
-  choice = gets.chomp
+ 
+  if turn_player.name == "Awesome-O.0.1" && awesome_memory.count > 0 && ## memory matach hand
+    choice = turn_player.hand.sample[0..1]
+  elsif
+    turn_player.name == "Awesome-O.0.1"
+    choice = turn_player.hand.sample[0..1]
+  else
+    choice = gets.chomp
+  end
+  
+  if turn_player = player_1
+    awesome_memory << choice
+  end
+  
   puts "Do you have any #{choice}?"
   puts "*Press Enter*"
   gets
@@ -58,14 +79,14 @@ def start_game(turn, player_1, player_2, player_1_score, player_2_score)
     @temp_array.each do |card|
       non_turn_player.hand.reject! { |hand| hand == card} #<< Remove card(s) from non_player's hand
     end
-    check_winning(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score)
+    check_winning(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score, awesome_memory)
   else
-     go_fish(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score)
+     go_fish(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score, awesome_memory)
   end
   
 end
 
-def go_fish(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score)  
+def go_fish(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score, awesome_memory)  
     puts "Go fish!¸.·´¯`·.´¯`·.¸¸.·´¯`·.¸><(((º>\n"
     puts "1 card added to #{turn_player.name}\n\n"
     turn_player.hand << Player.cards.slice!(0, 1).join("")
@@ -73,10 +94,10 @@ def go_fish(turn, turn_player, non_turn_player, player_1, player_2, player_1_sco
     puts "*Press Enter*"
     gets
     turn += 1
-    check_winning(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score) 
+    check_winning(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score, awesome_memory) 
 end
 
-def check_winning(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score)
+def check_winning(turn, turn_player, non_turn_player, player_1, player_2, player_1_score, player_2_score, awesome_memory)
   @four_card_array = []
   @card_number = ""
   @temp_array = []
@@ -123,7 +144,7 @@ def check_winning(turn, turn_player, non_turn_player, player_1, player_2, player
    if player_1.hand.count == 0 || Player.cards.count == 0 || player_2.hand.count == 0
      game_over(player_1, player_2, player_1_score, player_2_score)
    else       
-     start_game(turn, player_1, player_2, player_1_score, player_2_score)
+     start_game(turn, player_1, player_2, player_1_score, player_2_score, awesome_memory)
    end
 end
 
