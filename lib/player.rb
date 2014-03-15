@@ -7,7 +7,7 @@ class Player
   "5 of Hearts", "6 of Hearts", "7 of Hearts", "8 of Hearts", "9 of Hearts", "10 of Hearts", "Jack of Hearts",
   "Queen of Hearts", "King of Hearts", "Ace of Hearts", "2 of Diamonds", "3 of Diamonds", "4 of Diamonds",
   "5 of Diamonds", "6 of Diamonds", "7 of Diamonds", "8 of Diamonds", "9 of Diamonds", "10 of Diamonds",
-  "Jack of Diamonds", "Queen of Diamonds", "King of Diamonds", "Ace of Diamonds"].sort_by{rand}
+    "Jack of Diamonds", "Queen of Diamonds", "King of Diamonds", "Ace of Diamonds"].shuffle!#.sort_by{rand}
 
 
   def initialize(name)
