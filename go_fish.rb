@@ -47,18 +47,18 @@ def start_game(turn, player_1, player_2, player_1_score, player_2_score, awesome
   puts "\n#{turn_player.name}, what card number do you want?"
   puts "Enter 'J' for Jack, 'Q' for Queen, 'K' for King and 'A' for Ace"
  
-  if turn_player.name == "Awesome-O.0.1" && awesome_memory.count > 0 && ## memory matach hand
+  if turn_player.name == "Awesome-O.0.1" ##&& awesome_memory.count > 0 && ## memory matach hand
     choice = turn_player.hand.sample[0..1]
-  elsif
-    turn_player.name == "Awesome-O.0.1"
-    choice = turn_player.hand.sample[0..1]
+  #elsif
+   # turn_player.name == "Awesome-O.0.1"
+    #choice = turn_player.hand.sample[0..1]
   else
     choice = gets.chomp
   end
   
-  if turn_player = player_1
-    awesome_memory << choice
-  end
+  #if turn_player = player_1
+  # awesome_memory << choice ##<< awesome_memory keeps track of another player's cards
+  #end
   
   puts "Do you have any #{choice}?"
   puts "*Press Enter*"
